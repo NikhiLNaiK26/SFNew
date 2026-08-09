@@ -15,13 +15,13 @@ jobs:
 
       - name: Install Salesforce CLI
         run: |
-          npm install sfdx-cli --global
+          npm install @salesforce/cli --global
       
       - name: Authenticate to Salesforce
         run: |
-          echo "${{ secrets.SFDX_AUTH_URL }}" > sfdx_auth_url.txt
-          sfdx auth:sfdxurl:store -f sfdx_auth_url.txt -a DevHub
+          echo "${{ secrets.SFDX_AUTH_URL }}" | sf org login sfdx-url --alias vscodeOrg --set-default-dev-hub --sfdx-url-stdin
+          sfdx: auth:sfdxurl:store -f sfdx_auth_url.txt
 
       - name: Deploy to Salesforce
         run: |
-          sfdx force:source:deploy -p force-app -u DevHub
+          sf project deploy start --target-org vscodeOrg --wait 30
