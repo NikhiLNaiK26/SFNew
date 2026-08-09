@@ -1,4 +1,4 @@
-name: Deploy to Salesforce
+name: Deploy to SalesforceNew
 
 on:
   push:
