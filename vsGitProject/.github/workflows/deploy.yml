@@ -13,14 +13,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Salesforce CLI
+      - name: Install Salesforce CLI with NPM
         run: |
           npm install @salesforce/cli --global
       
       - name: Authenticate to Salesforce
         run: |
           echo "${{ secrets.SFDX_AUTH_URL }}" | sf org login sfdx-url --alias vscodeOrg --set-default-dev-hub --sfdx-url-stdin
-          sfdx: auth:sfdxurl:store -f sfdx_auth_url.txt
 
       - name: Deploy to Salesforce
         run: |
