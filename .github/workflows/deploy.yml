@@ -15,7 +15,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Salesforce CLI
-        run: npm install @salesforce/cli --global
+        run: |
+          npm install @salesforce/cli --global
 
-      - name: Verify CLI
-        run: sf --version
+      - name: Verify Salesforce CLI
+        run: |
+          sf --version
+
+      - name: Authenticate to Salesforce
+        run: |
+          echo "${{ secrets.SFDX_AUTH_URL }}" | sf org login sfdx-url --alias vscodeOrg --set-default --sfdx-url-stdin
+
+      - name: Deploy to Salesforce
+        run: |
+          sf project deploy start --target-org vscodeOrg --source-dir vsGitProject/force-app --wait 30
