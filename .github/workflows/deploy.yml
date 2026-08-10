@@ -1,4 +1,4 @@
-name: Test Workflow
+name: Deploy to Salesforce
 
 on:
   push:
@@ -7,9 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test
-        run: echo "Workflow Running Successfully"
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Salesforce CLI
+        run: npm install @salesforce/cli --global
+
+      - name: Verify CLI
+        run: sf --version
