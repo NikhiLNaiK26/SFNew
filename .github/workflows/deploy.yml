@@ -27,5 +27,6 @@ jobs:
           echo "${{ secrets.SFDX_AUTH_URL }}" | sf org login sfdx-url --alias vscodeOrg --set-default --sfdx-url-stdin
 
       - name: Deploy to Salesforce
+        working-directory: ./vsGitProject
         run: |
-          sf project deploy start --target-org vscodeOrg --source-dir vsGitProject/force-app --wait 30
+            sf project deploy start --target-org vscodeOrg --wait 30
